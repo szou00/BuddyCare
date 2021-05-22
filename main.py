@@ -17,7 +17,6 @@ class User(db.Model):
     username = db.Column("username", db.String(100))
     password = db.Column("password", db.String(100))
     bud = db.Column("bud", db.Boolean)
-    # test2 = db.Column("test2", db.Integer, primary_key= True)
     activity = db.Column("activity", db.String(100))
     streak = db.Column("streak", db.Integer, primary_key=True)
     
@@ -43,8 +42,6 @@ class newActivity(db.Model):
          self.activityname=activityname
      
 
-
-    
 db.create_all()
 db.session.commit()
 
@@ -52,9 +49,6 @@ db.session.commit()
 def before_request():
     g.user = None
     if 'name' in session:
-        # user = [x for x in users if x.id == session['user_id']][0]
-        # print(session['name'])
-        # print(User.query.all())
         user = User.query.filter_by(username = session['name']).first()
         g.user = user
 
@@ -63,7 +57,7 @@ def before_request():
 def home():
     if 'name' in session:
         found_user = User.query.filter_by(username = session['name']).first()
-    return render_template("index.html", values=User.query.all(),user=found_user)
+        return render_template("index.html", values=User.query.all(),user=found_user)
 
 @app.route('/<name>')
 def viewBuddy(name):
@@ -77,7 +71,11 @@ def viewBuddy(name):
 def profile():
     if "name" in session:
         user = User.query.filter_by(username=session['name']).first()
-        # buddy = user.bud
+
+        if user == None:
+            flash("Cannot find user")
+            return redirect(url_for("home"))
+
         if request.method=="POST":
             flash("Buddy Status Changed!")
             buddy = request.form["buddy"]
@@ -85,14 +83,24 @@ def profile():
                 user.bud = False
             else:
                 user.bud = True
-        # return render_template('profile.html', content=user.username, id=user.id, buddy=user.bud)
+            db.session.commit()
         return render_template('profile.html', content=user.username, id=user.id, activity=user.activity,streak=user.streak,bud=user.bud)
     flash("You must login first!")
     return redirect(url_for("login"))
 
 @app.route("/activity")
 def activity():
+    if request.method == "POST":
+        find_act=newActivity.query.filter_by(activityname=crazy).first()
+        if find_act:
+            session["activityname"] = find_act.activityname
+        else:
+            actname = newActivity(activity, "")
+            db1.session.add(actname)
+            db1.session.commit()
+        return redirect(url_for("login"))
     return render_template("activity.html")
+    
 
 @app.route("/Meditation")
 def meditation():
@@ -157,7 +165,7 @@ def create():
 def questions():
     if request.method == "POST":
         return redirect(url_for("login"))
-    return render_template("questions.html")
+    return render_template("Questions.html")
 
 
 @app.route("/view")

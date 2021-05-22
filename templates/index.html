@@ -17,7 +17,7 @@
 <center>
 <div id=users>
 {% for item in values %}
-        {% if (not item == user) and (user.bud == True) %}
+        {% if (not item == user) and (item.bud == True) %}
         profile: <a  href="/{{item.username}}">{{item.username}}!</a><br>
         {% endif %}
     {% endfor %}
