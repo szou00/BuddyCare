@@ -25,7 +25,7 @@ class User(db.Model):
     id = db.Column("id", db.Integer, primary_key= True)
     username = db.Column("username", db.String(100))
     password = db.Column("password", db.String(100))
-    bud = db.Column("bud", db.Integer)
+    # bud = db.Column("bud", db.Integer)
     # test2 = db.Column("test2", db.Integer, primary_key= True)
     
 
