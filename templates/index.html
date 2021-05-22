@@ -8,8 +8,18 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
+
 <center>
     <h1>Buddy Care</h1>
     <p>descriptionblahblah</p>
+</center>
+
+<center>
+<div id=users>
+{% for item in values %}
+        profile: 
+        <a  href="/{{item.username}}">{{item.username}}!</a><br>
+    {% endfor %}
+</div>
 </center>
 {% endblock %}

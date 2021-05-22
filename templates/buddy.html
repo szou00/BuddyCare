@@ -11,7 +11,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Profile Page</title>
+    <title>{{name}}'s Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   </head>
@@ -20,18 +20,15 @@
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
-            {{content}}'s Profile
+            {{name}}'s Profile
           </h1>
           <h2 class="subtitle">
-            You are user number #{{id}} <br>
-            Buddy status: 
-            {% if {{buddy}} %}
-              <p>down bad</p>
-            {% elif %}
-              <p>too cool</p>
-            {% endif %}
+            This is user number #{{id}} <br>
+            Buddy status: Down bad <br>
+            
+            Current Activity: Meditation <br>
+            Streak: 10 days
           </h2>
-          <a class="dropdown-item" href="/edit">Edit Your Profile!</a>
         </div>
       </div>
     </section>
