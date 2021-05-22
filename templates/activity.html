@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% block title %}Activity Page{% endblock %}
+{% block title %}Activity Page
+{% endblock %}
 {% block content %}
     {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -13,7 +14,7 @@
     <font size="70">
     <a  href="Walk">Walk<br></a>
     <a  href="Journal">Journal<br></a>
-    <a  href="Meditation">15 minute meditation<br></a>
+    <a  href="Meditation">Meditation<br></a>
     
     {% for activityName in activities %}
         <a  href="/activity/{{activityName}}">{{activityName}}<br></a>

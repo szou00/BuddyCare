@@ -35,12 +35,14 @@
 
           </h2>
           
-          {% if buddy.bud %}
+          {% if buddy.bud and user.bud %}
             <form method="POST">
               <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
               <label for="vehicle1">wanna be buddies?</label><br>
               <input type="submit" value="Submit">
             </form>
+          {% elif buddy.bud %}
+            <p>You have to remove {{user.budName}} as a buddy to be {{buddy.username}}'s buddy :(</p>
           {% else %}
             <p>You're buddies now!</p>
           {% endif %}

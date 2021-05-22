@@ -24,7 +24,7 @@ class User(db.Model):
     achieve = db.Column("achieve", db.String(300))
     joke = db.Column("joke", db.String(200))
     budName = db.Column("buddy",db.String(200))
-    #img = db.Column("img", db.Text)
+    #image_file = db.Column("img", db.String(100), default="sunflowers.jpg")
     #mimetype = db.Column("mimetyle", db.Text)
 
     def __init__(self, id, username, password):
@@ -38,8 +38,7 @@ class User(db.Model):
         self.achieve = "I want to sleep more"
         self.joke = "Why can’t you be friends with a squirrel?... They drive everyone nuts!"
         self.budName = None
-        self.img = None
-        self.mimetype = None
+        
         
     def __repr__(self):
         return self.username
@@ -90,10 +89,14 @@ def viewBuddy(name):
         user.bud = False
         buddy.bud = False
         db.session.commit()
-    return render_template("buddy.html", buddy=buddy)
+    return render_template("buddy.html", buddy=buddy, user=user)
     
 @app.route("/profile", methods=["POST", "GET"])
 def profile():
+
+    #the profile image part after adding new column dont delete
+    #image_file = url_for('static', filename='images/' + User.image_file)
+
     if "name" in session:
         user = User.query.filter_by(username=session['name']).first()
 
@@ -271,7 +274,8 @@ def edit(usr):
                 user.bud = True
             db.session.commit()
             return render_template('profile.html', user=user)
-    return render_template("edit.html",user=usr)
+        return render_template("edit.html",user=user)
+    return render_template("edit.html")
 
 
 @app.route('/addActivity')

@@ -23,9 +23,11 @@
       <div class="hero-body">
         <div class="container">
 
-          <div style="width: 200px; height: 200px; overflow: hidden;"> 
-              <img class="center" src= "static/images/sunflowers.jpg ">
+          <div style="width: 200px; height: 200px; overflow: hidden; display: block; margin: 0 auto;"> 
+              <img src= "static/images/sunflowers.jpg " class="center" alt="default">
+              <!-- <img src= " {{ user.image_file }}" class="center" alt="default"> -->
           </div>
+          <br>
             <h1 class="title">
               {{user.username}}'s Profile
             </h1>

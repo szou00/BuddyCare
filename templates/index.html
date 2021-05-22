@@ -1,6 +1,7 @@
 {% extends "base.html" %}
-{% block title %}Home Page{% endblock %}
+{% block title %}Home Page
 {% block content %}
+ 
 {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for msg in messages %}
@@ -35,6 +36,5 @@
         {% endif %}
     {% endfor %}
 </div>
-<link rel="stylesheet" href = "{{url_for('static', filename='style.css')}}">
 </center>
 {% endblock %}

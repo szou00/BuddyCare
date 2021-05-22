@@ -20,19 +20,25 @@
                 Edit Your Buddy Status
               </h1>
              
-                <form method="POST", action="/{{user}}/edit">
+                <form method="POST", action="/{{user.username}}/edit">
                 <fieldset>
-                        <div>
-                        
-                        <div class="buddy">  
+                        {% if user.bud %}
+                          <div class="buddy">  
+                              <input type="radio" value="yes" id="yes" name="buddy" required/>
+                              <label for="yes" class="radio" checked>im desperate for a buddy</label>
+                              <br>
+                              <input type="radio" value="no" id="no" name="buddy" required/>
+                              <label for="no" class="radio">get away from me yuck</label>
+                          </div>
+                        {% else %}
+                          <div class="buddy">  
                             <input type="radio" value="yes" id="yes" name="buddy" required/>
                             <label for="yes" class="radio">im desperate for a buddy</label>
                             <br>
                             <input type="radio" value="no" id="no" name="buddy" required/>
-                            <label for="no" class="radio">get away from me yuck</label>
-                        </div>
-                        
-                        </div>
+                            <label for="no" class="radio" checked>get away from me yuck</label>
+                          </div>
+                        {% endif %}
                     
                 </fieldset>
                 <button type="submit" class="btn btn-outline-light">Submit</button>
