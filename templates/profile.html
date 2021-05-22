@@ -8,28 +8,40 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
+  
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Profile Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}"> -->
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   </head>
+  
   <body>
     <section class="hero is-success is-fullheight">
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
-             {{content}}'s Profile
+             {{user.username}}'s Profile
           </h1>
           <h2 class="subtitle">
-            You are user number #{{id}} <br>
-            Buddy status: {{bud}}<br>
-            Current Activity: {{activity}} <br>
-            Streak: {{streak}}<br>
+            You are user number #{{user.id}} <br>
+            Buddy status: {{user.bud}}<br>
+            Current Activity: {{user.activity}} <br>
+            Streak: {{user.streak}}<br>
+            <h1>About Me!</h1>
+            <h1>{{user.bio}}</h1> <br>
+            What I want to achieve:
+            <p>{{user.achieve}}</p> <br>
 
           </h2>
-          <a class="dropdown-item" href="/{{content}}/edit">Edit Your Profile!</a>
+          <em>{{user.joke}}</em>
+          <br><br>
+
+          <a href="/Questions"><button type="button" class="btn btn-outline-light">Edit Your Profile!</button></a>
+          <a href="/{{user.username}}/edit"><button type="button" class="btn btn-outline-light">Edit Your Buddy Status!!</button></a>
+
         </div>
       </div>
     </section>

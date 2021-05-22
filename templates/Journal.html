@@ -2,10 +2,18 @@
 {% block title %}Activity Page{% endblock %}
 {% block content %}
     <center>
-    <h1>Write</h1>
-    
+    <h1>Activity Chosen: {{name}}</h1>
     {% block body%} 
-        
+    
+    
+        <h1>Show Checkboxes</h1>
+
+        <form method="POST">
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+            <label for="vehicle1">Choose this activity!</label><br>
+            <input type="submit" value="Submit">
+        </form>
+    
     {% endblock %}
 {% endblock %}
 

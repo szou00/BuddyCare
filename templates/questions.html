@@ -1,54 +1,48 @@
 {% extends "base.html" %}
 {% block title %}Questions Page{% endblock %}
 {% block content %}
-    <center>
-        <form>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <p>{{msg}}</p>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='questions.css')}}">
+    <div class="container" id="container">
+
+        <form id=textBox method="POST">
             <div class="form-group">
-              <label for="exampleFormControlInput1">Email address</label>
-              <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            <label for="bio"><h3>Tell me about yourself!</h3></label>
+            <textarea maxlength="100" class="form-control" id="bio" rows="2" name="bio"></textarea>
             </div>
+
             <div class="form-group">
-              <label for="exampleFormControlSelect1">Example select</label>
-              <select class="form-control" id="exampleFormControlSelect1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </div>
+                <label for="exampleFormControlTextarea1"><h3>What do you want to achieve with the self-care activities?</h3></label>
+                <textarea class="form-control" id="achieve" rows="2" name="achieve"></textarea>
+                </div> 
+
             <div class="form-group">
-              <label for="exampleFormControlSelect2">Example multiple select</label>
-              <select multiple class="form-control" id="exampleFormControlSelect2">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
+                <label for="joke"><h3>Tell me a joke!</h3></label>
+                <textarea class="form-control" id="joke" rows="1" name="joke"></textarea>
             </div>
-            <div class="form-group">
-              <label for="exampleFormControlTextarea1">Example textarea</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-          </form>
-    <h1>what do you want to achieve with the self-care activities?</h1>
-    <form action="#" method="post">
-        <p><input type = "text" answer = "answ" /></p>
         
-    </form>
-    <h1>?</h1>
-    <form action="#" method="post">
-        <p><input type = "text" answer = "answ" /></p>
+            <div class="form-group">
+                <label for="pfp" id="attach">Attach a profile picture!</label>
+                
+                <input type="file" class="form-control-file" id="pfp" accept="image/*">
+            </div>
+
+            <!-- <a class="dropdown-item" href="/profile" method="POST">Submit</a> -->
+            <a href="/profile"><input type="submit" class="btn btn-outline-light"/></a>
+            
+            
+        </form>
+
         
-    </form>
-    <h1>?</h1>
-    <form action="#" method="post">
-        <p><input type = "text" name = "answ" placeholder="Enter Answer" /></p>
-        <p><input type="submit" value="submit"/></p>
-    </form>
-    <a class="dropdown-item" href="/login">Submit!</a>
-    {% block body%} 
-        
-    {% endblock %}
+
+    </div>
 {% endblock %}

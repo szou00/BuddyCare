@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Add Activity Page{% endblock %}
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <p>{{msg}}</p>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <center>
+
+    <font size="100">Add your own activity!</font>
+    <form method="POST" action="/activity">
+        <p><input type = "activity" name = "activity" placeholder="Enter Here", Nullable=False /></p>
+            <a href="/activity"><input type="submit" value="submit"/></a>
+            
+    </form>
+
+    </center>
+     
+    {% block body%} 
+    {% endblock %}
+{% endblock %}

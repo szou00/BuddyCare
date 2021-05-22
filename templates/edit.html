@@ -20,12 +20,11 @@
                 Edit Your Buddy Status
               </h1>
              
-                <form method="POST", action="/profile">
+                <form method="POST", action="/{{user}}/edit">
                 <fieldset>
                         <div>
                         
-                        <div class="buddy">
-                            
+                        <div class="buddy">  
                             <input type="radio" value="yes" id="yes" name="buddy" required/>
                             <label for="yes" class="radio">im desperate for a buddy</label>
                             <br>
