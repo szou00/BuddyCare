@@ -20,18 +20,16 @@
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
-            {{content}}'s Profile
+             {{content}}'s Profile
           </h1>
           <h2 class="subtitle">
             You are user number #{{id}} <br>
-            Buddy status: 
-            {% if {{buddy}} %}
-              <p>down bad</p>
-            {% elif %}
-              <p>too cool</p>
-            {% endif %}
+            Buddy status: {{bud}}<br>
+            Current Activity: {{activity}} <br>
+            Streak: {{streak}}<br>
+
           </h2>
-          <a class="dropdown-item" href="/edit">Edit Your Profile!</a>
+          <a class="dropdown-item" href="/{{content}}/edit">Edit Your Profile!</a>
         </div>
       </div>
     </section>

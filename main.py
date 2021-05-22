@@ -11,64 +11,82 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.permanent_session_lifetime = timedelta(days=7)
 
 db = SQLAlchemy(app)
-
-@app.before_request
-def before_request():
-    g.user = None
-    if 'name' in session:
-        # user = [x for x in users if x.id == session['user_id']][0]
-        # print(session['user_id'])
-        user = User.query.filter_by(username = session['name']).first()
-        g.user = user
-
+db1 = SQLAlchemy(app)
 class User(db.Model):
     id = db.Column("id", db.Integer, primary_key= True)
     username = db.Column("username", db.String(100))
     password = db.Column("password", db.String(100))
-    # bud = db.Column("bud", db.Integer)
+    bud = db.Column("bud", db.Boolean)
     # test2 = db.Column("test2", db.Integer, primary_key= True)
+    activity = db.Column("activity", db.String(100))
+    streak = db.Column("streak", db.Integer, primary_key=True)
     
 
     def __init__(self, id, username, password):
         self.id = id
         self.username = username
         self.password = password
-        # self.bud = True #should automatically signal they want a buddy unless they change it
+        self.activity = None
+        self.streak = 0
+        self.bud = True #should automatically signal they want a buddy unless they change it
         # INSERT INTO db (id, username, password) VALUES (0,TRUE)
+        
         
     def __repr__(self):
         return self.username
 
+class newActivity(db.Model):
+     id1 = db.Column("id1", db.Integer, primary_key= True)
+     activityname= db.Column("activityname", db.String(100))
+
+     def __init__(self,activityname):
+         self.activityname=activityname
+     
+
+
+    
 db.create_all()
 db.session.commit()
+
+@app.before_request
+def before_request():
+    g.user = None
+    if 'name' in session:
+        # user = [x for x in users if x.id == session['user_id']][0]
+        # print(session['name'])
+        # print(User.query.all())
+        user = User.query.filter_by(username = session['name']).first()
+        g.user = user
 
 @app.route("/")
 @app.route('/home')
 def home():
-    return render_template("index.html", values=User.query.all())
+    if 'name' in session:
+        found_user = User.query.filter_by(username = session['name']).first()
+    return render_template("index.html", values=User.query.all(),user=found_user)
 
 @app.route('/<name>')
 def viewBuddy(name):
     buddy = User.query.filter_by(username=name).first()
     if buddy == None:
         flash("No Buddy!")
-        return render_template("home")
-    return render_template("buddy.html",name=buddy.username,id=buddy.id)
+        return render_template("index.html")
+    return render_template("buddy.html",name=buddy.username,id=buddy.id, activity=buddy.activity,streak=buddy.streak,bud=buddy.bud)
     
 @app.route("/profile", methods=["POST", "GET"])
 def profile():
     if "name" in session:
         user = User.query.filter_by(username=session['name']).first()
         # buddy = user.bud
-        # if request.method=="POST":
-        #     flash("Buddy Status Changed!")
-        #     buddy = request.form["buddy"]
-        #     if buddy == "no":
-        #         user.bud = False
-        #     else:
-        #         user.bud = True
+        if request.method=="POST":
+            flash("Buddy Status Changed!")
+            buddy = request.form["buddy"]
+            if buddy == "no":
+                user.bud = False
+            else:
+                user.bud = True
         # return render_template('profile.html', content=user.username, id=user.id, buddy=user.bud)
-        return render_template('profile.html', content=user.username, id=user.id)
+        return render_template('profile.html', content=user.username, id=user.id, activity=user.activity,streak=user.streak,bud=user.bud)
     flash("You must login first!")
     return redirect(url_for("login"))
 
@@ -131,21 +149,35 @@ def create():
             usr = User(len(User.query.all())+1, newusername, newpassword) 
             db.session.add(usr)
             db.session.commit()
-            return redirect(url_for("profile"))
+            return redirect(url_for("questions"))
     else:
         return render_template("create.html")
 
 @app.route("/Questions", methods=["POST", "GET"])
 def questions():
+    if request.method == "POST":
+        return redirect(url_for("login"))
     return render_template("questions.html")
 
 
 @app.route("/view")
 def view():
     return render_template("view.html", values=User.query.all())
+
+@app.route("/finder")
+def finder():
+    return render_template("finder.html", values = User.query.all())
     
-@app.route("/edit")
-def edit():
+@app.route("/<user>/edit", methods=["POST", "GET"])
+def edit(user):
+    # print("hey")
+    # if request.method == 'POST':
+    #     print("Your buddy status is")
+    #     buddyStatus = request.form['buddy']
+    #     print(buddyStatus)
+    #     found_user = User.query.filter_by(username=user).first()
+    #     if found_user:
+    #         found_user.bud = buddyStatus
     return render_template("edit.html")
 
 @app.route("/logout")
@@ -156,5 +188,5 @@ def logout():
     return redirect(url_for("login"))
 
 if __name__ == "__main__":
-    #db.create_all()
+    # db.create_all()
     app.run(debug=True) 
