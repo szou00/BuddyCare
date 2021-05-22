@@ -1,6 +1,8 @@
 body {
     margin: 0;
     font-family: sans-serif;
+    text-shadow: border;
+    background-color: rgb(165, 212, 199)
 }
 
 .container {
@@ -10,7 +12,7 @@ body {
     padding-bottom: 50px;
     padding-left: 100px;
     text-align: center;
-    background-color: rgba(39, 164, 186, 0.769);
+    background-color: rgba(241, 244, 245, 0.769);
     align-items:center;
 }
 
@@ -19,7 +21,7 @@ body {
 }
 
 .background {
-    color:white;
+    color:rgb(187, 187, 36);
 }
 
 .attach {

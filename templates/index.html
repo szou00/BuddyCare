@@ -11,16 +11,30 @@
 
 <center>
     <h1>Buddy Care</h1>
-    <p>descriptionblahblah</p>
+    <p>Mental health is important, do it with a buddy *thumbs up*</p>
+
 </center>
 
 <center>
 <div id=users>
 {% for item in values %}
-        {% if (not item == user) and (item.bud == True) %}
-        profile: <a  href="/{{item.username}}">{{item.username}}!</a><br>
+        {% if userFound %}
+            {% if item.username == user.budName %}
+            your loving buddy: <a  href="/{{item.username}}">{{item.username}}!</a><br>
+            {% endif %}
+
+            {% if (not item == user) and (item.bud == True) %}
+            profile: <a  href="/{{item.username}}">{{item.username}}!</a><br>
+            {% endif %}
+
+        {%else %}
+            {% if item.bud == True %}
+            profile: <a  href="/{{item.username}}">{{item.username}}!</a><br>
+            {% endif %}
+
         {% endif %}
     {% endfor %}
 </div>
+<link rel="stylesheet" href = "{{url_for('static', filename='style.css')}}">
 </center>
 {% endblock %}

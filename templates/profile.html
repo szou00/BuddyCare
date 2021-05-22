@@ -22,34 +22,45 @@
     <section class="hero is-success is-fullheight">
       <div class="hero-body">
         <div class="container">
-          <h1 class="title">
-             {{user.username}}'s Profile
-          </h1>
-          <h2 class="subtitle">
-            You are user number #{{user.id}} <br>
-            Buddy status: {{user.bud}}<br>
-            Current Activity: {{user.activity}} <br>
-            Streak: {{user.streak}}<br>
-            <h1>About Me!</h1>
-            <h1>{{user.bio}}</h1> <br>
-            What I want to achieve:
-            <p>{{user.achieve}}</p> <br>
 
-          </h2>
-          <em>{{user.joke}}</em>
-          <br><br>
+          <div style="width: 200px; height: 200px; overflow: hidden;"> 
+              <img class="center" src= "static/images/sunflowers.jpg ">
+          </div>
+            <h1 class="title">
+              {{user.username}}'s Profile
+            </h1>
+            <h2 class="subtitle">
+              You are user number #{{user.id}} <br>
+              Buddy status: {{user.bud}} <br>
+                BuddyName: {% if not user.budName == None%}
+                  {{user.budName}}
+              {% endif %}<br>
+              Current Activity: {{user.activity}} <br>
+              Streak: {{user.streak}}<br>
+              <h1>About Me!</h1>
+              <h1>{{user.bio}}</h1> <br>
+              What I want to achieve:
+              <p>{{user.achieve}}</p> <br>
+              <br>
 
-          <a href="/Questions"><button type="button" class="btn btn-outline-light">Edit Your Profile!</button></a>
-          <a href="/{{user.username}}/edit"><button type="button" class="btn btn-outline-light">Edit Your Buddy Status!!</button></a>
-
+            </h2>
+            <em>{{user.joke}}</em>
+            <br><br>
+            
+            <form method="POST">
+              <a href="/Questions"><button type="button" class="btn btn-outline-light">Edit Your Profile!</button></a>
+              {% if user.budName == None %}
+                <a href="/{{user.username}}/edit"><button type="button" class="btn btn-outline-light">Edit Your Buddy Status!!</button></a>
+              {% else %}
+                <a href="/profile"><input type="submit" class="btn btn-outline-light" name="button" value="removeBuddy"/></a>
+              {% endif %}
+              <a href="/profile"><input type="submit" class="btn btn-outline-light" name="button" value="checkin"></button></a>
+            </form>
         </div>
-      </div>
+      </div>  
     </section>
   </body>
 
 
-
-     
-
-
 {% endblock %}
+

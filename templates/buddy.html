@@ -11,7 +11,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{name}}'s Page</title>
+    <title>{{buddy.username}}'s Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   </head>
@@ -19,16 +19,31 @@
     <section class="hero is-success is-fullheight">
       <div class="hero-body">
         <div class="container">
-          <h1 class="title">
-            <font size="200">You are viewing {{name}}'s Profile</font>
-          </h1>
+          <h1 class="title"><font size="200">You are viewing {{buddy.username}}'s Profile</font></h1>
           <h2 class="subtitle">
-            <!--This is user number #{{id}} <br>-->
-            Buddy status: {{bud}} <br>
-              Current Activity: {{activity}} <br>
-              Streak: {{streak}}
-              
+              Buddy status: {{buddy.bud}} <br>
+              Current Activity: {{buddy.activity}} <br>
+              Streak: {{buddy.streak}}
+              <br>
+              About {{buddy.username}}:
+              {{buddy.bio}}
+              <br>
+              What {{buddy.username}} wants to achieve:
+              {{buddy.achieve}}
+              <br>
+              <em>{{buddy.joke}}</em>
+
           </h2>
+          
+          {% if buddy.bud %}
+            <form method="POST">
+              <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+              <label for="vehicle1">wanna be buddies?</label><br>
+              <input type="submit" value="Submit">
+            </form>
+          {% else %}
+            <p>You're buddies now!</p>
+          {% endif %}
         </div>
       </div>
     </section>

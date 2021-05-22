@@ -1,5 +1,6 @@
-from flask import Flask, redirect, url_for, render_template, request, session, flash, g
+from flask import Flask, redirect, url_for, render_template, request, session, flash, g, Response
 from datetime import timedelta, datetime
+from werkzeug.utils import secure_filename
 
 from flask.signals import Namespace
 from flask_sqlalchemy import SQLAlchemy
@@ -22,8 +23,9 @@ class User(db.Model):
     bio = db.Column("bio", db.String(300))
     achieve = db.Column("achieve", db.String(300))
     joke = db.Column("joke", db.String(200))
-    # budName = db.Column("buddy",db.String(200))
-    
+    budName = db.Column("buddy",db.String(200))
+    #img = db.Column("img", db.Text)
+    #mimetype = db.Column("mimetyle", db.Text)
 
     def __init__(self, id, username, password):
         self.id = id
@@ -35,7 +37,9 @@ class User(db.Model):
         self.bio = 'Nice to meet you! I love sleep'
         self.achieve = "I want to sleep more"
         self.joke = "Why can’t you be friends with a squirrel?... They drive everyone nuts!"
-        # self.budName = None
+        self.budName = None
+        self.img = None
+        self.mimetype = None
         
     def __repr__(self):
         return self.username
@@ -68,15 +72,25 @@ def before_request():
 def home():
     if 'name' in session:
         found_user = User.query.filter_by(username = session['name']).first()
-        return render_template("index.html", values=User.query.all(),user=found_user)
+        if found_user:
+            return render_template("index.html", values=User.query.all(),userFound=True,user=found_user)
+    else:
+        return render_template("index.html", values=User.query.all(),userFound=False)
 
-@app.route('/<name>')
+@app.route('/<name>', methods=['POST','GET'])
 def viewBuddy(name):
     buddy = User.query.filter_by(username=name).first()
+    user = User.query.filter_by(username=session['name']).first()
     if buddy == None:
         flash("No Buddy!")
         return render_template("index.html")
-    return render_template("buddy.html",name=buddy.username,id=buddy.id, activity=buddy.activity,streak=buddy.streak,bud=buddy.bud)
+    if request.method=='POST':
+        buddy.budName = session['name']
+        user.budName = buddy.username
+        user.bud = False
+        buddy.bud = False
+        db.session.commit()
+    return render_template("buddy.html", buddy=buddy)
     
 @app.route("/profile", methods=["POST", "GET"])
 def profile():
@@ -87,25 +101,42 @@ def profile():
             flash("Cannot find user")
             return redirect(url_for("home"))
 
-        print("it works at this line")
+        #print("it works at this line")
+        print(request.method)
         if request.method=="POST":
-            bio = request.form["bio"]
-            achieve = request.form["achieve"]
-            joke = request.form["joke"]
-            
-            print("\n\n\n BIO IS", bio, "\n\n\n")
-            print("HELLOOOOOOOOOOOOOOO")
-            if not(bio == None):
-                user.bio = bio
-            if not(achieve == None):
-                user.achieve = achieve
-            if not(joke == None):
-                user.joke = joke
-            
-            db.session.commit()
-        return render_template('profile.html', user=user)
-    flash("You must login first!")
-    return redirect(url_for("login"))
+            if request.form['button'] == 'removeBuddy':
+                flash("removing :((")
+                budName = user.budName
+                buddy = User.query.filter_by(username=budName).first()
+                user.budName = None
+                buddy.budName = None
+                user.bud = True
+                buddy.bud = True
+                db.session.commit()
+                return render_template('profile.html', user=user)
+            elif request.form["button"]== "checkin":
+                if 'name' in session:
+                    user = User.query.filter_by(username=session['name']).first()
+                    user.streak= user.streak+1
+                    db.session.commit()
+                return render_template('profile.html',user=user)
+            else:
+                bio = request.form["bio"]
+                achieve = request.form["achieve"]
+                joke = request.form["joke"]
+                
+                if not(bio == None):
+                    user.bio = bio
+                if not(achieve == None):
+                    user.achieve = achieve
+                if not(joke == None):
+                    user.joke = joke
+                db.session.commit()
+        elif request.method == 'GET':
+            return render_template('profile.html', user=user)
+    else:
+        flash("You must login first!")
+        return redirect(url_for("login"))
 
 @app.route("/activity", methods=["POST", "GET"])
 def activity():
@@ -202,32 +233,30 @@ def create():
             session['name'] = newusername
             db.session.add(usr)
             db.session.commit()
-            return redirect(url_for("questions"))
+            return redirect(url_for("questions", user=usr))
     else:
         return render_template("create.html")
 
 @app.route("/Questions", methods=["POST", "GET"])
 def questions():
-    flash(request.method)
+    user = User.query.filter_by(username=session['name']).first()
     if request.method == "POST":
         if "name" in session:
             session.permanent = True
-            user = User.query.filter_by(username=session['name']).first()
+            #
             user.bio=request.form["bio"]
             user.achieve=request.form["achieve"]
             user.joke=request.form["joke"]
             db.session.commit()
             return redirect(url_for("profile"))
-    return render_template("Questions.html")
+    return render_template("Questions.html", user=user)
 
 
 @app.route("/view")
 def view():
     return render_template("view.html", values=User.query.all(), values1=newActivity.query.all())
 
-@app.route("/finder")
-def finder():
-    return render_template("finder.html", values = User.query.all())
+@app.route("/")
 
 @app.route("/<usr>/edit", methods=["POST", "GET"])
 def edit(usr):
@@ -259,6 +288,8 @@ def activityPage(activityName):
             db.session.commit()
             return redirect(url_for("profile"))
     return render_template("chooseActivity.html", name=activityName) 
+
+
 
 @app.route("/logout")
 def logout():

@@ -10,22 +10,20 @@
     {% endwith %}
     <center>
     <h1>Activities</h1>
+    <font size="70">
     <a  href="Walk">Walk<br></a>
     <a  href="Journal">Journal<br></a>
     <a  href="Meditation">15 minute meditation<br></a>
     
     {% for activityName in activities %}
         <a  href="/activity/{{activityName}}">{{activityName}}<br></a>
-    {% endfor %}
-    <font size="100"><a href="/addActivity">Add your own activity!</a></font>
-    <!-- <form method="POST">
-        <p><input type = "activity" name = "activity" placeholder="Enter Here" /></p>
-            <p><input type="submit" value="submit"/></p>
-    </form> -->
+    {% endfor %}</font>
+    <font size="70"><a href="/addActivity">Add your own activity!</a></font>
+    <link rel="stylesheet" href = "{{url_for('static', filename='style.css')}}">
 
     </center>
     {% block body %} 
-        
+    <link rel="stylesheet" href = "{{url_for('static', filename='style.css')}}">
     {% endblock %}
 {% endblock %}
 
