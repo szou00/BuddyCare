@@ -4,7 +4,9 @@
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for msg in messages %}
-                <p>{{msg}}</p>
+            <div class="alert alert-success" role="alert">
+              {{msg}}
+            </div>
             {% endfor %}
         {% endif %}
     {% endwith %}
@@ -12,19 +14,53 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Login</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"> -->
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
       </head>
       
       <body>
+
+        <!-- <div class="container">
+          <form method="POST">
+            <div class="field">
+              <label class="label">Username</label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input" type="text" name="username" placeholder="Username">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+                </span>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Password</label>
+              <p class="control has-icons-left">
+                <input class="input" type="password" name="password" placeholder="Password">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-lock"></i>
+                </span>
+              </p>
+            </div>
+            <div class="field">
+              <p class="control">
+                <button type="submit" class="button is-success">
+                  Login
+                </button>
+              </p>
+              <div>Don't have an account?</div> 
+              <a class="nav-link" href="/create">Create an Account</a>
+            </div>
+          </form>
+        </div> -->
+
         <section class="hero is-info is-fullheight">
           <div class="hero-body">
             <div class="container">
+              <h1>Log In</h1>
               <div class="columns is-centered">
                 <div class="column is-half">
                   <form method="POST">
                     <div class="field">
-                      <label class="label">Username</label>
+                      <p>Type in your username:</p>
                       <div class="control has-icons-left has-icons-right">
                         <input class="input" type="text" name="username" placeholder="Username">
                         <span class="icon is-small is-left">
@@ -32,23 +68,21 @@
                         </span>
                       </div>
                     </div>
+                    <br>
                     <div class="field">
-                      <label class="label">Password</label>
-                      <p class="control has-icons-left">
+                      <p>Type in your password:</p>
+                      <div class="control has-icons-left">
                         <input class="input" type="password" name="password" placeholder="Password">
                         <span class="icon is-small is-left">
                           <i class="fas fa-lock"></i>
                         </span>
-                      </p>
+                      </div>
                     </div>
-                    <div class="field">
+                    <div class="field"><br>
                       <p class="control">
-                        <button type="submit" class="button is-success">
-                          Login
-                        </button>
+                        <button type="submit" class="btn btn-outline-dark btn-sm">Login</button>
                       </p>
-                      <div>Don't have an account?</div> 
-                      <a class="nav-link" href="/create">Create an Account</a>
+                      Don't have an account? <a class="nav-link" href="/create">Create an Account</a>
                     </div>
                   </form>
                 </div>

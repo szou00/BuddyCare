@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Edit Your Profile{% endblock %}
+{% block content %}
+<html>
+    <head>
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Edit Buddy Status</title>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+            <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+          </head>
+    </head>
+
+    <body>
+        <!-- <section class="hero is-success is-fullheight"> -->
+          <div class="hero-body">
+            <div class="container">
+              <h1 class="title">
+                Edit Your Buddy Status
+              </h1>
+             
+                <form method="POST">
+                <fieldset>
+                        {% if user.bud %}
+                          <div class="buddy">  
+                              <input type="radio" value="yes" id="yes" name="buddy" required/>
+                              <label for="yes" class="radio" checked>im desperate for a buddy</label>
+                              <br>
+                              <input type="radio" value="no" id="no" name="buddy" required/>
+                              <label for="no" class="radio">get away from me yuck</label>
+                          </div>
+                        {% else %}
+                          <div class="buddy">  
+                            <input type="radio" value="yes" id="yes" name="buddy" required/>
+                            <label for="yes" class="radio">im desperate for a buddy</label>
+                            <br>
+                            <input type="radio" value="no" id="no" name="buddy" required/>
+                            <label for="no" class="radio" checked>get away from me yuck</label>
+                          </div>
+                        {% endif %}
+                    
+                </fieldset>
+                <a href="/profile"><button type="submit" class="btn btn-outline-dark">Submit</button></a>
+                </form>
+
+            </div>
+          </div>
+        <!-- </section> -->
+      </body>
+
+
+    
+  </html>
+{% endblock %}

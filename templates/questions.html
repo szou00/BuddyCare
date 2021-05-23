@@ -1,23 +1,47 @@
 {% extends "base.html" %}
 {% block title %}Questions Page{% endblock %}
 {% block content %}
-    <center>
-    <h1>what do you want to achieve with the self-care activities?</h1>
-    <form action="#" method="post">
-        <p><input type = "text" answer = "answ" /></p>
-        <p><input type="submit" value="submit"/></p>
-    </form>
-    <h1>?</h1>
-    <form action="#" method="post">
-        <p><input type = "text" answer = "answ" /></p>
-        <p><input type="submit" value="submit"/></p>
-    </form>
-    <h1>?</h1>
-    <form action="#" method="post">
-        <p><input type = "text" answer = "answ" /></p>
-        <p><input type="submit" value="submit"/></p>
-    </form>
-    {% block body%} 
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+        <div class="alert alert-success" role="alert">
+            {{msg}}
+          </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='questions.css')}}"> -->
+    <div class="container" id="container">
+
+        <form id=textBox method="POST" action="/profile"  enctype="multipart/form-data">
+            <div class="form-group">
+            <label for="bio"><h3>Tell me about yourself!</h3></label>
+            <textarea maxlength="300" class="form-control" id="bio" rows="2" name="bio">{{user.bio}}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1"><h3>What do you want to achieve with the self-care activities?</h3></label>
+                <textarea maxlength="300" class="form-control" id="achieve" rows="2" name="achieve">{{user.achieve}}</textarea>
+            </div> 
+
+            <div class="form-group">
+                <label for="joke"><h3>Tell me a joke!</h3></label>
+                <textarea maxlength="200" class="form-control" id="joke" rows="1" name="joke">{{user.joke}}</textarea>
+            </div>
         
-    {% endblock %}
+            <div class="form-group">
+                <label for="pfp" id="attach">Upload a profile picture of your favorite food!</label>
+                <input type="file" class="form-control-file" id="pfp" name="pfp" accept="image/*">
+            </div>
+
+            <!-- <a href="/profile"> -->
+                <input type="submit" name="button" class="btn btn-outline-dark" value="Save"/>
+            <!-- </a> -->
+                     
+        </form>
+
+    </div>
 {% endblock %}

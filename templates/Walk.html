@@ -1,12 +1,26 @@
-{% extends "base.html" %}
-{% block title %}Activity Page{% endblock %}
+{% extends 'base.html' %}
+{% block title %}Choose Activity Page{% endblock %}
 {% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <center>
-    <h1>20 min walk</h1>
-    
-    {% block body%} 
-        
-    {% endblock %}
+    <div class="container">
+        <h1>Activity Chosen: Walk</h1><br>
+        <p>Activity Description:</p>
+        <p>Take a 10 minute break. Go outside, breathe in the fresh air!<p3>
+        {% block body %}
+            <!--<h1>Show Checkboxes</h1>--><br>
+            
+            <form method="POST">
+                <a href="/activity"><button type="button" class="btn btn-outline-dark">Back</button></a>
+                <input type="submit" class="btn btn-outline-dark" id="vehicle1" name="vehicle1" value="Choose this!"/></a>
+            </form>
+        </center>
+        {% endblock %}
+    </div>
 {% endblock %}
-
-{}

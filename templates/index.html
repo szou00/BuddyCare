@@ -1,15 +1,46 @@
 {% extends "base.html" %}
 {% block title %}Home Page{% endblock %}
+
 {% block content %}
-{% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for msg in messages %}
-                <p>{{msg}}</p>
+ 
+    {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                <div class="alert alert-success" role="alert">
+                    {{msg}}
+                  </div>
+                {% endfor %}
+            {% endif %}
+    {% endwith %}
+    
+    <div class="container">
+        <div class="image"> 
+            <img src= "/static/images/icon.png" alt="logo" style="width:150px;">
+        </div>
+
+            <p style="font-family:coiny; font-size:100px; padding:10px">BuddyCare</p><br>
+            <p class="systemText" style="font-size:40px">Mental health is important, do it with a buddy &#128077;</p><br>
+            <!-- <img src="static/images/logo.png" width="200" height="200"> -->
+
+        {% if userFound %}
+            <p class="systemText" style="font-size:30px">Here are some users:</p><br>
+            {% for item in values %}
+                {% if userFound %}
+                    {% if item.username == user.budName %}<p class="systemText" style="font-size:20px">
+                    Your loving buddy: <a  href="/{{item.username}}">{{item.username}}</a><br> </p>
+                    {% endif %}
+
+                    {% if (not item == user) and (item.bud == True) %}<p class="systemText" style="font-size:20px">
+                    Profile: <a  href="/{{item.username}}">{{item.username}}</a><br></p>
+                    {% endif %}
+
+                {% else %}
+                    {% if item.bud == True %}<p class="systemText" style="font-size:20px">
+                    Profile: <a  href="/{{item.username}}">{{item.username}}</a><br></p>
+                    {% endif %}
+                {% endif %}
             {% endfor %}
         {% endif %}
-    {% endwith %}
-<center>
-    <h1>Buddy Care</h1>
-    <p>descriptionblahblah</p>
-</center>
+        </div>
+    </div>
 {% endblock %}

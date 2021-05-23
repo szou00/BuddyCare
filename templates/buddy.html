@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Profile Page{% endblock %}
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+            <div class="alert alert-success" role="alert">
+              {{msg}}
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{buddy.username}}'s Page</title>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"> -->
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  </head>
+  <body>
+
+    <div class="container">
+      <h1 class="title">{{buddy.username}}</h1>
+      {% if buddy.username == user.budName %}
+        <h1>It's your buddy!</h1>
+      {% endif %}
+      <div class="image" class="left" style="float: left; padding: 0 20px 20px 0;; width: 200px; overflow: hidden; height: 200px; display: block; margin: 40px 100px 40px"> 
+        <img src= "static/images/{{ buddy.image_file }}" class="image" alt="default">
+      </div>
+      
+      <div class="textContainer">
+        <h2 class="subtitle">
+          <p class="systemText">Statistics:</p>
+          <p class="userText">Still looking for a buddy?: {{buddy.bud}}</p>
+          <p class="userText">{% if user.budName%}Buddy: {{buddy.budName}}{% endif %}</p>
+          <p class="userText">
+          {% if buddy.activity %}
+            Current Activity: {{buddy.activity}}
+          {% else %}
+            Current Activity: Hasn't chosen yet 
+          {% endif %}</p>
+          <p class="userText">Days Checked-in: {{buddy.streak}}</p>
+        </h2>
+      </div><br>
+
+      <!-- <a style="text-align:center; font-size:20px"> -->
+      <!-- <div>
+        <br>
+        <div style = "right:198px; bottom:-15px;">
+        <b>About me...</b><p class="answers">{{buddy.bio}}</p></div>
+        
+        <b>I want to acheive... </b><p class="answers">{{buddy.achieve}}</p>
+        <b>Here's a joke! </b><p class="answers">{{buddy.joke}}</p>
+      </div> -->
+      <div>
+        <br><br>
+        <b><p class="about">About me...</p></b><p class="answers">{{buddy.bio}}</p>
+        <b><p class="about">I want to acheive...</p></b><p class="answers">{{buddy.achieve}}</p>
+        <b><p class="about">Here's a joke!</p></b><p class="answers">{{buddy.joke}}</p>
+      </div>
+      <!-- </a> -->
+        {% if buddy.bud and user.bud %}
+          <form method="POST">
+            <input type="submit" class="btn btn-outline-dark" name="button" value="Be Buddies"/></a>
+          </form>
+        {% elif buddy.bud and user.budName %}
+          <form method="POST">
+            <input type="submit" class="btn btn-outline-dark" name="button" value="Change Buddies"/></a>
+          </form>
+        {% elif buddy.bud %}
+          <p>You have to change your Buddy Status to be {{buddy.username}}'s buddy</p>
+        {% else %}
+          <form method="POST" action="/profile">
+              <a href="/profile"><input type="submit" class="btn btn-outline-dark" name="button" value="Remove Buddy"/></a>
+          </form>
+        {% endif %}
+
+        
+    </div>
+  </body>
+
+
+
+
+
+{% endblock %}

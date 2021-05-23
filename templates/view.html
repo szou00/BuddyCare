@@ -2,6 +2,10 @@
 {% block title %}View All Users{% endblock %}
 {% block content %}
     {% for item in values %}
-        <p>ID: {{item.id}}, Name: {{item.username}}, Password: {{item.password}}</p>
+        <p>ID: {{item.id}}, Name: {{item.username}}, Password: {{item.password}}, Buddy Status: {{item.bud}}, Activity: {{item.activity}}, Buddy: {{item.budName}}</p>
+    
+    {% endfor %}
+    {% for item in values1 %}
+        <p>ID: {{item.id1}}, Activity: {{item.activityname}}</p>
     {% endfor %}
 {% endblock %}

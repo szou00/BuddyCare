@@ -1,16 +1,90 @@
 {% extends "base.html" %}
-{% block title %}Activity Page{% endblock %}
+{% block title %}Activity Page
+{% endblock %}
 {% block content %}
-    <center>
-    <h1>Activities</h1>
-    <a  href="Walk">Walk<br></a>
-    <a  href="Journal">Journal<br></a>
-    <a  href="Meditation">15 minute meditation</a>
-    </center>
-    {% block body%} 
-        
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+        <div class="alert alert-success" role="alert">
+            {{msg}}
+          </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+    
+        <div class="container">
+            <a style="font-size:50px">Activities </a><br>
+            
+            <!-- <div class="container"> -->
+                <div class="row">
+
+                  <div class="col">
+                    <div class="item">
+                        <a href="/Walk" style= "font-size:30px">Walk</a>
+                      </div>
+                  </div>
+                  <div class="col">
+                    <div class="item">
+                        <a href="/Journal" style= "font-size:30px">Journal</a>
+                      </div>
+                  </div>
+                  <div class="col">
+                    <div class="item">
+                        <a href="/Meditation" style= "font-size:30px">Meditation</a>
+                      </div>
+                  </div>
+
+                  <div class="w-100"></div>
+
+                    {% for activityName in activities %}
+                        
+
+                        <div class="col">
+                            <div class="item">
+                                <a  href="/activity/{{activityName}}" style= "font-size:30px">{{activityName}}<br></a>
+                            </div>
+                        </div>
+
+                        {% if activityName.id1 % 3 == 0 %}
+                            <div class="w-100"></div>
+                        {% endif %}
+                
+                    {% endfor %}
+
+                </div>
+
+              
+              <!-- <div class="row">
+                <div class="col">
+                    <div class="item">
+                        <a style="font-size:30px" href="/addActivity">Add your own activity!</a>
+                    </div>
+                  </div>
+              </div> -->
+            
+              <br><a href="/addActivity"><button type="button" class="btn btn-outline-dark btn-lg btn-block">Add Your Own Activity!</button></a>
+
+            <!-- <a  href="/activity/walk" style= "font-size:30px">Take a 30 Minute Walk<br></a>
+            <a  href="/activity/journal" style= "font-size:30px">Keep a Journal of Your Mood!<br></a>
+            <a  href="/activity/meditation" style= "font-size:30px">Meditate for 10 Minutes<br></a>
+             -->
+
+            <!-- <a  href="/Walk" style= "font-size:30px">Walk<br></a>
+            <a  href="/Journal" style= "font-size:30px">Journal<br></a>
+            <a  href="/Meditation" style= "font-size:30px">Meditation<br></a>
+            
+            {% for activityName in activities %}
+                <a  href="/activity/{{activityName}}" style= "font-size:30px">{{activityName}}<br></a>
+            {% endfor %}
+            
+            <a style="font-size:30px" href="/addActivity">Add your own activity!</a> -->
+            <link rel="stylesheet" href = "{{url_for('static', filename='style.css')}}">
+        </div>
+    
+    {% block body %} 
+   <link rel="stylesheet" href = "{{url_for('static', filename='style.css')}}">
     {% endblock %}
 {% endblock %}
 
-{}
+
 
