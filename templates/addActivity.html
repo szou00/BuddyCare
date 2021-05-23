@@ -8,20 +8,21 @@
         {% endfor %}
     {% endif %}
     {% endwith %}
-    <center>
+    
         <div class="container" id="container">
-            <font size="100">Add your own activity!</font>
+             <div style="font-size:35px">Add your own activity!</div>
             <form method="POST" action="/activity">
-                <p><input type = "activity" class="form-control" name = "activity" placeholder="Activity Name", Nullable=False /></p>
+                <p><input type = "activity" class="form-control" name = "activity" placeholder="Activity Name", Nullable=False required/></p>
                 <br>
                 <label for="description"><h3>Describe Your New Activity!</h3></label>
-                <textarea class="form-control" id="description" name = "description" rows="3" name="achieve"></textarea>
+                <textarea class="form-control" id="description" name = "description"  rows="3" name="achieve" required></textarea>
                 <br><br>
-                <a href="/activity"><input type="submit" value="submit"/></a>
-
+                
+                <a href="/activity"><input type="button" class="btn btn-outline-dark" name="button" value="Back"/></a>
+                <a href="/profile"><input type="submit" class="btn btn-outline-dark" name="button" value="Submit"/></a>
             </form>
         </div>
-    </center>
+    
      
     {% block body%} 
     {% endblock %}

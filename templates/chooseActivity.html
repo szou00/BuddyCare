@@ -8,17 +8,19 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-    <center>
-    <h1>Activity Chosen: {{act.activityname}}</h1><br>
-    <p>Activity Description:</p>
-    <p>{{act.description}}<p3>
-    {% block body %}
-        <!--<h1>Show Checkboxes</h1>--><br>
+    
+        <div class="container">
+        <h1>Activity Chosen: {{act.activityname}}</h1><br>
+        <p>Activity Description:</p>
+        <p>{{act.description}}
+        {% block body %}
+            <!--<h1>Show Checkboxes</h1>--><br>
+            
+            <form method="POST">
+                <a href="/activity"><button type="button" class="btn btn-outline-dark">Back</button></a>
+                <input type="submit" class="btn btn-outline-dark" id="vehicle1" name="vehicle1" value="Choose this!"/></a>
+            </form>
+        </div>
         
-        <form method="POST">
-            <a href="/activity"><button type="button" class="btn btn-outline-light">Back</button></a>
-            <input type="submit" class="btn btn-outline-light" id="vehicle1" name="vehicle1" value="Choose this!"/></a>
-        </form>
-    </center>
-    {% endblock %}
+    {% endblock %} 
 {% endblock %}

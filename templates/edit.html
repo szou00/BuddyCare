@@ -20,7 +20,7 @@
                 Edit Your Buddy Status
               </h1>
              
-                <form method="POST", action="/{{user.username}}/edit">
+                <form method="POST">
                 <fieldset>
                         {% if user.bud %}
                           <div class="buddy">  
@@ -41,7 +41,7 @@
                         {% endif %}
                     
                 </fieldset>
-                <button type="submit" class="btn btn-outline-light">Submit</button>
+                <a href="/profile"><button type="submit" class="btn btn-outline-dark">Submit</button></a>
                 </form>
 
             </div>

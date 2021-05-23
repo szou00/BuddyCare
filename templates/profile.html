@@ -15,11 +15,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Profile Page</title>
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}"> -->
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    
-  </head>
+</head>
   
   <body>
     <div class="container">
@@ -30,8 +27,7 @@
       </div>
       
       <div class="textContainer">
-        <h2 class="subtitle">
-          <a style= "font-size:30px">
+        <h2 class="subtitle" style= "font-size:30px; ">
           <p class="systemText">Your Statistics:</p>
           <p class="userText">User: #{{user.id}}</p>
           <p class="userText">Still looking for a buddy?: {{user.bud}}</p>
@@ -43,21 +39,24 @@
             Current Activity: Hasn't chosen yet 
           {% endif %}</p>
           <p class="userText">Days Checked-in: {{user.streak}}</p></h2>
-          </a>
       </div><br>
 
-      <a style="text-align:center; font-size:20px">
-        <b>About me...</b><p class="answers">{{user.bio}}</p>
-        <b>I want to acheive... </b><p class="answers">{{user.achieve}}</p>
-        <b>Here's a joke! </b><p class="answers">{{user.joke}}</p>
-      </a>
+      <div>
+        <br>
+        <b><p class="about">About me...</p></b><b><p class="answers">{{user.bio}}</p></b>
+        <b><p class="about">I want to acheive...</p></b><b><p class="answers">{{user.achieve}}</p></b>
+        <b><p class="about">Here's a joke!</p></b><b></b><p class="answers">{{user.joke}}</p></b>
+      </div>
             <form method="POST">
+
               <a href="/Questions"><button type="button" class="btn btn-outline-dark">Edit Your Profile!</button></a>
+
               {% if user.budName == None %}
-                <a href="/{{user.username}}/edit"><button type="button" class="btn btn-outline-dark">Edit Your Buddy Status!!</button></a>
+                <a href="/edit"><button type="button" class="btn btn-outline-dark" name="buddy" value="Edit Status">Edit Your Buddy Status!!</button></a>
               {% else %}
-                <a href="/profile"><input type="submit" class="btn btn-outline-dark" name="button" value="Remove Buddy"/></a>
+                <a href="/profile"><input type="button" class="btn btn-outline-dark" name="button" value="Remove Buddy"/></a>
               {% endif %}
+              
               <a href="/profile"><input type="submit" class="btn btn-outline-dark" name="button" value="Check In"></button></a>
             </form>
       </div>

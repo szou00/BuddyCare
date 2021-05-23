@@ -93,9 +93,10 @@ db1.session.commit()
 @app.before_request
 def before_request():
     g.user = None
-    if 'name' in session and not(session['name'] == None):
-        user = User.query.filter_by(username = session['name']).first()
-        g.user = user
+    if not(User == None or len(User.query.all())==0):
+        if 'name' in session and not(session['name'] == None):
+            user = User.query.filter_by(username = session['name']).first()
+            g.user = user
     
 
 @app.route("/")
@@ -110,7 +111,7 @@ def home():
             return render_template("index.html", values=User.query.all(),userFound=True,user=found_user)
         else:
             session.pop("name",None)
-            return render_template("index.html")
+            return render_template("index.html",userFound=False)
     else:
         return render_template("index.html", values=User.query.all(),userFound=False)
 
@@ -118,18 +119,23 @@ def home():
 def viewBuddy(name):
     if not 'name' in session:
         flash("You need to login first!")
-        return render_template("index.html")
+        return render_template("index.html",userFound=False)
     buddy = User.query.filter_by(username=name).first()
     user = User.query.filter_by(username=session['name']).first()
     if buddy == None:
         flash("No Buddy!")
-        return render_template("index.html")
-    if request.method=='POST':
+        return render_template("index.html",userFound=False)
+    if request.method=='POST' and request.form['button'] == 'Be Buddies':
+        flash("Successfully became buddies!")
         buddy.budName = session['name']
         user.budName = buddy.username
         user.bud = False
         buddy.bud = False
         db.session.commit()
+    if request.method=='POST' and request.form['button'] == 'Change Buddies':
+        flash("You have to remove your current buddy to change buddies!")
+        # redirect(url_for("/<user.budName>"))
+    # <p>You have to remove {{user.budName}} as a buddy to be {{buddy.username}}'s buddy :(</p>
     return render_template("buddy.html", buddy=buddy, user=user)
     
 @app.route("/profile", methods=["POST", "GET"])
@@ -149,7 +155,7 @@ def profile():
         print(request.method)
         if request.method=="POST":
             if request.form['button'] == 'Remove Buddy':
-                flash("removing :((")
+                flash("Buddy removed :(")
                 budName = user.budName
                 buddy = User.query.filter_by(username=budName).first()
                 user.budName = None
@@ -342,11 +348,12 @@ def view():
 
 @app.route("/")
 
-@app.route("/<usr>/edit", methods=["POST", "GET"])
-def edit(usr):
+@app.route("/edit", methods=["POST", "GET"])
+def edit():
     if "name" in session:
         user = User.query.filter_by(username=session['name']).first()
         if request.method=="POST":
+        # if request.method=="POST" and (request.form["buddy"]== "yes" or request.form["buddy"]== "no"):
             flash("Buddy Status Changed!")
             buddy = request.form["buddy"]
             if buddy == "no":
@@ -354,9 +361,9 @@ def edit(usr):
             else:
                 user.bud = True
             db.session.commit()
-            return render_template('profile.html', user=user)
-        return render_template("edit.html",user=user)
-    return render_template("edit.html")
+            return redirect(url_for('profile', user=user))
+        return render_template('edit.html',user=user)
+    return render_template("profile.html")
 
 
 @app.route('/addActivity')
@@ -382,9 +389,11 @@ def activityPage(activityName):
 
 @app.route("/logout")
 def logout():
-    flash("You have been logged out!", "info")
-    session.pop("name", None)
-    #session.pop("email", None)
+    if 'name' in session:
+        flash("You have been logged out!", "info")
+        session.pop("name", None)
+    else:
+        flash("Logging out? You aren't even logged in yet!")
     return redirect(url_for("login"))
 
  
