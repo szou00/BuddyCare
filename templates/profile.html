@@ -44,7 +44,7 @@
       <div>
         <br>
         <b><p class="about">About me...</p></b><b><p class="answers">{{user.bio}}</p></b>
-        <b><p class="about">I want to acheive...</p></b><b><p class="answers">{{user.achieve}}</p></b>
+        <b><p class="about">I want to...</p></b><b><p class="answers">{{user.achieve}}</p></b>
         <b><p class="about">Here's a joke!</p></b><b></b><p class="answers">{{user.joke}}</p></b>
       </div>
             <form method="POST">
@@ -54,7 +54,7 @@
               {% if user.budName == None %}
                 <a href="/edit"><button type="button" class="btn btn-outline-dark" name="buddy" value="Edit Status">Edit Your Buddy Status!!</button></a>
               {% else %}
-                <a href="/profile"><input type="button" class="btn btn-outline-dark" name="button" value="Remove Buddy"/></a>
+                <a href="/profile"><input type="submit" class="btn btn-outline-dark" name="button" value="Remove Buddy"/></a>
               {% endif %}
               
               <a href="/profile"><input type="submit" class="btn btn-outline-dark" name="button" value="Check In"></button></a>

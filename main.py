@@ -40,8 +40,8 @@ class User(db.Model):
         self.activity = None
         self.streak = 0
         self.bud = True #should automatically signal they want a buddy unless they change it
-        self.bio = 'Nice to meet you! I love sleep'
-        self.achieve = "I want to sleep more"
+        self.bio = "I love donuts! Let's be good buddies :D" 
+        self.achieve = "I want to be more consistent with self care"
         self.joke = "Why can’t you be friends with a squirrel?... They drive everyone nuts!"
         self.budName = None
         
@@ -93,7 +93,7 @@ db1.session.commit()
 @app.before_request
 def before_request():
     g.user = None
-    if not(User == None or len(User.query.all())==0):
+    if User:
         if 'name' in session and not(session['name'] == None):
             user = User.query.filter_by(username = session['name']).first()
             g.user = user
@@ -148,11 +148,11 @@ def profile():
         user = User.query.filter_by(username=session['name']).first()
 
         if user == None:
-            flash("Cannot find user")
+            flash("Cannot find user. Try Again!")
             return redirect(url_for("home"))
 
         #print("it works at this line")
-        print(request.method)
+        # print(request.method)
         if request.method=="POST":
             if request.form['button'] == 'Remove Buddy':
                 flash("Buddy removed :(")
