@@ -6,7 +6,7 @@ To run our code:
 
 ```git clone https://github.com/szou00/BuddyCare.git```
 
-```cd BuddyCare.git```
+```cd BuddyCare```
 
 Ensure that flask is downloaded and running!
 
