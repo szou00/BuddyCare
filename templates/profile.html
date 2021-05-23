@@ -4,7 +4,9 @@
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for msg in messages %}
-                <p>{{msg}}</p>
+            <div class="alert alert-success" role="alert">
+              {{msg}}
+            </div>
             {% endfor %}
         {% endif %}
     {% endwith %}
@@ -13,54 +15,52 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Profile Page</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"> -->
     <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}"> -->
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    
   </head>
   
   <body>
-    <section class="hero is-success is-fullheight">
-      <div class="hero-body">
-        <div class="container">
+    <div class="container">
+      <h1 class="title">Your Profile</h1>
+      <h1>{{user.username}}</h1>
+      <div class="image" class="left" style="float: left; padding: 0 20px 20px 0;; width: 200px; overflow: hidden; height: 200px; display: block; margin: 40px 100px 40px"> 
+        <img src= "static/images/{{ user.image_file }}" class="image" alt="default">
+      </div>
+      
+      <div class="textContainer">
+        <h2 class="subtitle">
+          <a style= "font-size:30px">
+          <p class="systemText">Your Statistics:</p>
+          <p class="userText">User: #{{user.id}}</p>
+          <p class="userText">Still looking for a buddy?: {{user.bud}}</p>
+          <p class="userText">{% if user.budName%}Buddy: {{user.budName}}{% endif %}</p>
+          <p class="userText">
+          {% if user.activity %}
+            Current Activity: {{user.activity}}
+          {% else %}
+            Current Activity: Hasn't chosen yet 
+          {% endif %}</p>
+          <p class="userText">Days Checked-in: {{user.streak}}</p></h2>
+          </a>
+      </div><br>
 
-          <div style="width: 200px; height: 200px; overflow: hidden; display: block; margin: 0 auto;"> 
-              <img src= "static/images/sunflowers.jpg " class="center" alt="default">
-              <!-- <img src= " {{ user.image_file }}" class="center" alt="default"> -->
-          </div>
-          <br>
-            <h1 class="title">
-              {{user.username}}'s Profile
-            </h1>
-            <h2 class="subtitle">
-              You are user number #{{user.id}} <br>
-              Buddy status: {{user.bud}} <br>
-                BuddyName: {% if not user.budName == None%}
-                  {{user.budName}}
-              {% endif %}<br>
-              Current Activity: {{user.activity}} <br>
-              Streak: {{user.streak}}<br>
-              <h1>About Me!</h1>
-              <h1>{{user.bio}}</h1> <br>
-              What I want to achieve:
-              <p>{{user.achieve}}</p> <br>
-              <br>
-
-            </h2>
-            <em>{{user.joke}}</em>
-            <br><br>
-            
+      <a style="text-align:center; font-size:20px">
+        <b>About me...</b><p class="answers">{{user.bio}}</p>
+        <b>I want to acheive... </b><p class="answers">{{user.achieve}}</p>
+        <b>Here's a joke! </b><p class="answers">{{user.joke}}</p>
+      </a>
             <form method="POST">
-              <a href="/Questions"><button type="button" class="btn btn-outline-light">Edit Your Profile!</button></a>
+              <a href="/Questions"><button type="button" class="btn btn-outline-dark">Edit Your Profile!</button></a>
               {% if user.budName == None %}
-                <a href="/{{user.username}}/edit"><button type="button" class="btn btn-outline-light">Edit Your Buddy Status!!</button></a>
+                <a href="/{{user.username}}/edit"><button type="button" class="btn btn-outline-dark">Edit Your Buddy Status!!</button></a>
               {% else %}
-                <a href="/profile"><input type="submit" class="btn btn-outline-light" name="button" value="removeBuddy"/></a>
+                <a href="/profile"><input type="submit" class="btn btn-outline-dark" name="button" value="Remove Buddy"/></a>
               {% endif %}
-              <a href="/profile"><input type="submit" class="btn btn-outline-light" name="button" value="checkin"></button></a>
+              <a href="/profile"><input type="submit" class="btn btn-outline-dark" name="button" value="Check In"></button></a>
             </form>
-        </div>
-      </div>  
-    </section>
+      </div>
   </body>
 
 

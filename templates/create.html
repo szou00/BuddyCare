@@ -5,40 +5,44 @@
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for msg in messages %}
-                <p>{{msg}}</p>
+            <div class="alert alert-success" role="alert">
+              {{msg}}
+            </div>
             {% endfor %}
         {% endif %}
     {% endwith %}
+    
+    <div class="container">
+      
+      <form method="POST">
 
-    <p>hello bitches</p>
-    <form method="POST">
-        <div class="field">
-          <label class="label">Create a username: </label>
-          <div class="control has-icons-left has-icons-right">
-            <input class="input" type="text" name="newusername" placeholder="Username">
-            <span class="icon is-small is-left">
-              <i class="fas fa-user"></i>
-            </span>
+          <div class="field">
+            <p>Create a username: </p>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input" type="text" name="newusername" placeholder="Username">
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+            </div>
           </div>
-        </div>
-        <div class="field">
-          <label class="label">Create a password: </label>
-          <p class="control has-icons-left">
-            <input class="input" type="password" name="newpassword" placeholder="Password">
-            <span class="icon is-small is-left">
-              <i class="fas fa-lock"></i>
-            </span>
-          </p>
-        </div>
-        <div class="field">
-          <p class="control">
-            <button type="submit" class="button is-success">
-              Create Account
-            </button>
-          </p>
-        </div>
-      </form>
-
+          <br>
+          <div class="field">
+            <p>Create a password: </p>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input" type="password" name="newpassword" placeholder="Password">
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+            </div>
+          </div>
+          <br>
+          <div class="field">
+            <p class="control">
+              <button type="submit" class="btn btn-outline-dark btn-sm">Create Account</button>
+            </p>
+          </div>
+        </form>
+      </div>
 
 
 

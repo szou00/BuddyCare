@@ -4,7 +4,9 @@
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for msg in messages %}
-                <p>{{msg}}</p>
+            <div class="alert alert-success" role="alert">
+              {{msg}}
+            </div>
             {% endfor %}
         {% endif %}
     {% endwith %}
@@ -12,43 +14,54 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{buddy.username}}'s Page</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"> -->
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   </head>
   <body>
-    <section class="hero is-success is-fullheight">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title"><font size="200">You are viewing {{buddy.username}}'s Profile</font></h1>
-          <h2 class="subtitle">
-              Buddy status: {{buddy.bud}} <br>
-              Current Activity: {{buddy.activity}} <br>
-              Streak: {{buddy.streak}}
-              <br>
-              About {{buddy.username}}:
-              {{buddy.bio}}
-              <br>
-              What {{buddy.username}} wants to achieve:
-              {{buddy.achieve}}
-              <br>
-              <em>{{buddy.joke}}</em>
 
-          </h2>
-          
-          {% if buddy.bud and user.bud %}
-            <form method="POST">
-              <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-              <label for="vehicle1">wanna be buddies?</label><br>
-              <input type="submit" value="Submit">
-            </form>
-          {% elif buddy.bud %}
-            <p>You have to remove {{user.budName}} as a buddy to be {{buddy.username}}'s buddy :(</p>
-          {% else %}
-            <p>You're buddies now!</p>
-          {% endif %}
-        </div>
+    <div class="container">
+      <h1 class="title">{{buddy.username}}</h1>
+      <div class="image" class="left" style="float: left; padding: 0 20px 20px 0;; width: 200px; overflow: hidden; height: 200px; display: block; margin: 40px 100px 40px"> 
+        <img src= "static/images/{{ buddy.image_file }}" class="image" alt="default">
       </div>
-    </section>
+      
+      <div class="textContainer">
+        <h2 class="subtitle">
+          <p class="systemText">Statistics:</p>
+          <p class="userText">Still looking for a buddy?: {{buddy.bud}}</p>
+          <p class="userText">{% if user.budName%}Buddy: {{buddy.budName}}{% endif %}</p>
+          <p class="userText">
+          {% if buddy.activity %}
+            Current Activity: {{buddy.activity}}
+          {% else %}
+            Current Activity: Hasn't chosen yet 
+          {% endif %}</p>
+          <p class="userText">Days Checked-in: {{buddy.streak}}</p>
+        </h2>
+      </div><br>
+
+      <a style="text-align:center; font-size:20px">
+        <b></b><p class="answers"></p>
+        <b>About me...</b><p class="answers">{{buddy.bio}}</p>
+        <b>I want to acheive... </b><p class="answers">{{buddy.achieve}}</p>
+        <b>Here's a joke! </b><p class="answers">{{buddy.joke}}</p>
+      </a>
+        {% if buddy.bud and user.bud %}
+          <form method="POST">
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+            <label for="vehicle1">Wanna be buddies?</label><br>
+            <input type="submit" value="Submit">
+          </form>
+        {% elif buddy.bud and user.budName %}
+          <p>You have to remove {{user.budName}} as a buddy to be {{buddy.username}}'s buddy :(</p>
+        {% elif buddy.bud %}
+          <p>You have to change your Buddy Status to be {{buddy.username}}'s buddy</p>
+        {% else %}
+          <p>You're buddies now!</p>
+        {% endif %}
+
+        
+    </div>
   </body>
 
 

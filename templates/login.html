@@ -4,7 +4,9 @@
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for msg in messages %}
-                <p>{{msg}}</p>
+            <div class="alert alert-success" role="alert">
+              {{msg}}
+            </div>
             {% endfor %}
         {% endif %}
     {% endwith %}

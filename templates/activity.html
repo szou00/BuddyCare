@@ -5,26 +5,45 @@
     {% with messages = get_flashed_messages() %}
     {% if messages %}
         {% for msg in messages %}
-            <p>{{msg}}</p>
+        <div class="alert alert-success" role="alert">
+            {{msg}}
+          </div>
         {% endfor %}
     {% endif %}
     {% endwith %}
     <center>
-    <h1>Activities</h1>
-    <font size="70">
-    <a  href="Walk">Walk<br></a>
-    <a  href="Journal">Journal<br></a>
-    <a  href="Meditation">Meditation<br></a>
-    
-    {% for activityName in activities %}
-        <a  href="/activity/{{activityName}}">{{activityName}}<br></a>
-    {% endfor %}</font>
-    <font size="70"><a href="/addActivity">Add your own activity!</a></font>
-    <link rel="stylesheet" href = "{{url_for('static', filename='style.css')}}">
+        <div class="container">
+            <a style="font-size:50px">Activities </a><br>
+            
+            <div class="container">
+                <div class="row">
+                  <div class="col" action="/home">col</div>
+                  <div class="col">col</div>
+                  <div class="w-100"></div>
+                  <div class="col">col</div>
+                  <div class="col">col</div>
+                </div>
+              </div>
+            
+            <!-- <a  href="/activity/walk" style= "font-size:30px">Take a 30 Minute Walk<br></a>
+            <a  href="/activity/journal" style= "font-size:30px">Keep a Journal of Your Mood!<br></a>
+            <a  href="/activity/meditation" style= "font-size:30px">Meditate for 10 Minutes<br></a>
+             -->
 
+            <a  href="/Walk" style= "font-size:30px">Walk<br></a>
+            <a  href="/Journal" style= "font-size:30px">Journal<br></a>
+            <a  href="/Meditation" style= "font-size:30px">Meditation<br></a>
+            
+            {% for activityName in activities %}
+                <a  href="/activity/{{activityName}}" style= "font-size:30px">{{activityName}}<br></a>
+            {% endfor %}
+            
+            <a style="font-size:30px" href="/addActivity">Add your own activity!</a>
+            <link rel="stylesheet" href = "{{url_for('static', filename='style.css')}}">
+        </div>
     </center>
     {% block body %} 
-    <link rel="stylesheet" href = "{{url_for('static', filename='style.css')}}">
+   <link rel="stylesheet" href = "{{url_for('static', filename='style.css')}}">
     {% endblock %}
 {% endblock %}
 

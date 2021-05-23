@@ -1,19 +1,48 @@
 body {
     margin: 0;
-    font-family: sans-serif;
+    font-family: 'Lora';
     text-shadow: border;
     background-color: rgb(165, 212, 199)
 }
 
+text {
+    font-family: Georgia,Times,"Times New Roman",serif;
+}
+
+.answers {
+  /* margin:15px; */
+  text-align:center;
+  /* line-height: 40px; */
+}
+
 .container {
-    position: relative;
-    padding-top: 70px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-top: 40px;
     padding-right: 100px;
     padding-bottom: 50px;
     padding-left: 100px;
     text-align: center;
     background-color: rgba(241, 244, 245, 0.769);
-    align-items:center;
+    border-radius: 50px 50px 50px 50px;
+    /* align-items:center; */
+}
+
+.textContainer {
+  font-family: 'Lora';
+  font-size: 160%;
+  font-weight: 400;
+  padding-top: 20px;
+  padding-right: 0px;
+  padding-bottom: 20px;
+  padding-left: 80px;
+  text-align: center;
+  background-color: rgb(165, 212, 199)
+  /* align-items:center; */
+}
+
+.title {
+  font-size: 80px;
 }
 
 .textBox {
@@ -25,9 +54,87 @@ body {
 }
 
 .attach {
-    text-align: left;
+    text-align: center;
 }
 
+p {
+    font-family: 'Montserrat';
+    font-style: bold;
+    font-size: 18px;
+    font-weight: 400;
+  }
 
+.subtitle {
+  font-family: 'Lora';
+  font-size: 160%;
+  font-weight: 400;
+}
 
+.systemText {
+  font-family: 'Lora';
+  font-size: 30px;
+  font-weight: 400;
+}
 
+.userText {
+  font-family: 'Montserrat';
+  font-style: bold;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+}
+
+  /* nav bar */
+  .navbar {
+    width: 100%;
+    background-color: rgb(42, 72, 55);
+  }
+
+  .navbar a {
+    font-family: 'Lora';
+    text-shadow: border;
+    float: left;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    width: 16%; /* Four equal-width links. If you have two links, use 50%, and 33.33% for three links, etc..
+    text-align: center; /* If you want the text to be centered */
+  }
+
+  /* Add a background color on mouse-over */
+.navbar a:hover {
+    background-color: #000;
+  }
+  
+  /* Style the current/active link */
+  .navbar a.active {
+    background-color: #04AA6D;
+  }
+  
+  /* Add responsiveness - on screens less than 500px, make the navigation links appear on top of each other, instead of next to each other */
+  @media screen and (max-width: 500px) {
+    .navbar a {
+      float: none;
+      display: block;
+      width: 100%;
+      text-align: left; /* If you want the text to be left-aligned on small screens */
+    }
+  }
+
+.image {
+  width: 200px; 
+  height: 200px;
+  overflow: hidden; 
+  display: block; 
+  margin: 0 auto;
+  float: left; 
+  padding: 0 20px 20px 0; 
+}
+
+/* .left {
+  float: left;
+  padding: 0 20px 20px 0;
+ } */
+ 
