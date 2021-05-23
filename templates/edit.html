@@ -7,7 +7,7 @@
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <title>Edit Buddy Status</title>
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+            <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"> -->
             <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
           </head>
     </head>
@@ -25,18 +25,18 @@
                         {% if user.bud %}
                           <div class="buddy">  
                               <input type="radio" value="yes" id="yes" name="buddy" required/>
-                              <label for="yes" class="radio" checked>im desperate for a buddy</label>
-                              <br>
+                              <label for="yes" class="radio" checked>On the look out for a buddy!</label>
+                              
                               <input type="radio" value="no" id="no" name="buddy" required/>
-                              <label for="no" class="radio">get away from me yuck</label>
+                              <label for="no" class="radio">Let me take a break right now!</label>
                           </div>
                         {% else %}
                           <div class="buddy">  
                             <input type="radio" value="yes" id="yes" name="buddy" required/>
-                            <label for="yes" class="radio">im desperate for a buddy</label>
-                            <br>
+                            <label for="yes" class="radio">On the look out for a buddy!</label>
+                            
                             <input type="radio" value="no" id="no" name="buddy" required/>
-                            <label for="no" class="radio" checked>get away from me yuck</label>
+                            <label for="no" class="radio" checked>Let me take a break right now!</label>
                           </div>
                         {% endif %}
                     
