@@ -24,6 +24,7 @@
                         <a href="/Walk"><button type="button" class="btn btn-outline-dark btn-lg btn-block">Walk</button></a>
                       <!-- </div> -->
                   </div>
+                
                   <div class="col">
                     <!-- <div class="item"> -->
                         <!-- <a href="/Journal" style= "font-size:30px">Journal</a> -->
@@ -38,8 +39,9 @@
                       <!-- </div> -->
                   </div>
 
-                  <div class="w-100"></div>
-
+                </div>
+                <br>
+                <div class="row">
                     {% for activityName in activities %}
                         
 
@@ -52,12 +54,14 @@
                         </div>
 
                         {% if activityName.id1 % 3 == 0 %}
-                            <div class="w-100"></div>
+                            </div>
+                            <br>
+                            <div class="row">
                         {% endif %}
                 
                     {% endfor %}
-
-                </div>
+                            </div>
+                
 
               
               <!-- <div class="row">
