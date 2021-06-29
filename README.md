@@ -4,9 +4,9 @@ Created By: Tyler Nguyen, Sharon Zou, Fiona Mei
 
 To run our code:
 
-```git clone https://github.com/szou00/buddyCare.git```
+```git clone https://github.com/szou00/BuddyCare.git```
 
-```cd buddyCare.git```
+```cd BuddyCare```
 
 Ensure that flask is downloaded and running!
 
