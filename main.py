@@ -108,12 +108,12 @@ def home():
     elif 'name' in session:
         found_user = User.query.filter_by(username = session['name']).first()
         if found_user:
-            return render_template("index.html", values=User.query.all(),userFound=True,user=found_user)
+            return render_template("index.html", values=User.query.all(),userFound=True,user=found_user,numUsers=User.query.count())
         else:
             session.pop("name",None)
-            return render_template("index.html",userFound=False)
+            return render_template("index.html",userFound=False,numUsers=User.query.all().count())
     else:
-        return render_template("index.html", values=User.query.all(),userFound=False)
+        return render_template("index.html", values=User.query.all(),userFound=False,numUsers=User.query.count())
 
 @app.route('/<name>', methods=['POST','GET'])
 def viewBuddy(name):
