@@ -31,7 +31,7 @@ class User(db.Model):
     joke = db.Column("joke", db.String(200))
     budName = db.Column("buddy",db.String(200))
     image_file = db.Column("img", db.String(100), default="sunflowers.jpg")
-    #lastCheckIn= db.Column(db.DateTime, default=datetime.utcnow)
+    lastCheckIn= db.Column(db.DateTime, default=None)
     
     def __init__(self, id, username, password):
         self.id = id
@@ -167,18 +167,18 @@ def profile():
             elif request.form["button"]== "Check In":
                 if 'name' in session:
                     user = User.query.filter_by(username=session['name']).first()
-                    # if user.streak==0:
-                    #     user.lastCheckIn= datetime.now()
-                    #     user.streak=1
-                    # else:
-                    #     now= datetime.now()
-                    #     last= user.lastCheckIn
-                    #     print(now)
-                    #     print(last)
-                    #     if not (now<last or now==last):
-                    #         user.streak= user.streak+1
-                    #         user.lastCheckIn=datetime.now()
-                    user.streak= user.streak+1
+                    if user.streak==0:
+                        user.lastCheckIn= datetime.now()
+                        user.streak=1
+                    else:
+                        difference = datetime.now() - user.lastCheckIn
+                        daysPassed = difference.days
+                        if (daysPassed >= 1):
+                            user.streak= user.streak+1
+                            user.lastCheckIn=datetime.now()
+                            user.streak= user.streak+1
+                        else:
+                            flash("You already checked in once today!")
                     db.session.commit()
                 return render_template('profile.html', user=user)
             else:
