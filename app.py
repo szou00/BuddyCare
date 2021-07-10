@@ -4,7 +4,6 @@ from PIL import Image
 from flask import Flask, redirect, url_for, render_template, request, session, flash, g, Response
 from datetime import timedelta, datetime, date
 from werkzeug.utils import secure_filename
-import time
 
 from flask.signals import Namespace
 from flask_sqlalchemy import SQLAlchemy
