@@ -119,12 +119,12 @@ def home():
 def viewBuddy(name):
     if not 'name' in session:
         flash("You need to login first!")
-        return render_template("index.html",userFound=False)
+        return render_template("index.html",userFound=False,numUsers=User.query.count())
     buddy = User.query.filter_by(username=name).first()
     user = User.query.filter_by(username=session['name']).first()
     if buddy == None:
         flash("No Buddy!")
-        return render_template("index.html",userFound=False)
+        return render_template("index.html",userFound=False,numUsers=User.query.count())
     if request.method=='POST' and request.form['button'] == 'Be Buddies':
         flash("Successfully became buddies!")
         buddy.budName = session['name']
