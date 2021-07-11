@@ -13,7 +13,6 @@ app.permanent_session_lifetime = timedelta(days=7)
 
 db = SQLAlchemy(app)
 db1 = SQLAlchemy(app)
-# db2 = SQLAlchemy(app)
 
 class User(db.Model):
     id = db.Column("id", db.Integer, primary_key= True)
