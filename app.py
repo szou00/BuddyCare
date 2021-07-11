@@ -2,10 +2,7 @@ import os
 import secrets
 from PIL import Image
 from flask import Flask, redirect, url_for, render_template, request, session, flash, g, Response
-from datetime import timedelta, datetime, date
-from werkzeug.utils import secure_filename
-
-from flask.signals import Namespace
+from datetime import timedelta, datetime
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)

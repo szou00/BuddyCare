@@ -22,7 +22,7 @@
             <p class="systemText" style="font-size:40px">Self-care is important, do it with a buddy &#128077;</p><br>
             <!-- <img src="static/images/logo.png" width="200" height="200"> -->
 
-        {% if numUsers>1 %}
+        {% if numUsers>1 and userFound %}
             <p class="systemText" style="font-size:30px">Here are some users:</p><br>
             {% for item in values %}
                 {% if userFound %}
