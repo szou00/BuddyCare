@@ -55,13 +55,6 @@ class newActivity(db1.Model):
      def __repr__(self):
          return self.activityname
 
-# class checkInTimes():
-#     id2=db2.Column("id2", db2.Integer, primary_key=True)
-#     timeCheckIn= db2.Column(db.DateTime, default=datetime.utcnow)
-
-#     def __repr__(self):
-#         return self.timeCheckIn
-
 db.create_all()
 db.session.commit()
 
