@@ -1,5 +1,5 @@
 import os
-# import secrets
+import secrets
 from PIL import Image
 from flask import Flask, redirect, url_for, render_template, request, session, flash, g, Response
 from datetime import timedelta, datetime
@@ -204,7 +204,7 @@ def profile():
         return redirect(url_for("login"))
 
 def save_picture(form_picture):
-    random_hex = "12345678"
+    random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
     picture_path = os.path.join(app.root_path, 'static/images', picture_fn)
